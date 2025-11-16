@@ -2,6 +2,8 @@ const directionDisplay = document.getElementById("direction");
 const intensityDisplay = document.getElementById("intensity");
 const statusDisplay = document.getElementById("status");
 const indicator = document.getElementById("indicator");
+const sensorBubble = document.getElementById("sensorBubble");
+const vehicle = document.getElementById("vehicle");
 
 // Server URL - loaded from configuration
 const SERVER_URL = window.APP_CONFIG
@@ -14,15 +16,60 @@ function updateDisplay(data) {
   directionDisplay.textContent = data.direction;
   intensityDisplay.textContent = data.intensity;
 
-  // Rotate indicator based on direction
-  indicator.style.transform = `rotate(${data.direction}deg)`;
+  // Update sensor bubble based on intensity (0-100)
+  updateSensorBubble(data.intensity, data.direction);
 
-  // Change indicator appearance based on intensity
-  if (data.intensity > 10) {
-    indicator.classList.add("active");
-    indicator.style.transform += ` scale(${1 + data.intensity / 100})`;
+  // Update indicator position and appearance
+  updateIndicator(data.direction, data.intensity);
+}
+
+function updateSensorBubble(intensity, direction) {
+  // Calculate bubble size based on intensity (smaller = closer object)
+  // Max size at 0 intensity, min size at 100 intensity
+  const maxSize = 150;
+  const minSize = 100;
+  const bubbleSize = maxSize - (intensity / 100) * (maxSize - minSize);
+
+  sensorBubble.style.width = `${bubbleSize}px`;
+  sensorBubble.style.height = `${bubbleSize}px`;
+
+  // Change bubble appearance based on intensity levels
+  sensorBubble.classList.remove("intense");
+  if (intensity > 60) {
+    sensorBubble.classList.add("intense");
+  }
+
+  // Add pulsing animation for high intensity
+  if (intensity > 80) {
+    sensorBubble.style.animation = "pulse 0.5s infinite alternate";
+  } else if (intensity > 40) {
+    sensorBubble.style.animation = "pulse 1s infinite alternate";
   } else {
-    indicator.classList.remove("active");
+    sensorBubble.style.animation = "none";
+  }
+}
+
+function updateIndicator(direction, intensity) {
+  // Position indicator at the edge of the bubble in the specified direction
+  const bubbleRadius = parseFloat(sensorBubble.style.width) / 2 || 100;
+  const indicatorDistance = bubbleRadius - 20; // Slightly inside the bubble edge
+
+  // Convert direction to radians (0° = top, clockwise)
+  const angleRad = (direction - 90) * (Math.PI / 180);
+
+  // Calculate position
+  const x = indicatorDistance * Math.cos(angleRad);
+  const y = indicatorDistance * Math.sin(angleRad);
+
+  // Apply transform
+  indicator.style.transform = `translate(${x}px, ${y}px)`;
+
+  // Update indicator appearance based on intensity
+  indicator.classList.remove("danger", "warning");
+  if (intensity > 70) {
+    indicator.classList.add("danger");
+  } else if (intensity > 40) {
+    indicator.classList.add("warning");
   }
 }
 
