@@ -57,7 +57,7 @@ function calculateValues(x, y) {
   if (direction < 0) direction += 360;
 
   // Calculate intensity (0-100 based on distance from center)
-  const intensity = Math.min(100, (distance / radius) * 100);
+  const intensity = 100 - Math.min(100, (distance / radius) * 100);
 
   return { direction: Math.round(direction), intensity: Math.round(intensity) };
 }
