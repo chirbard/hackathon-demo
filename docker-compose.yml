@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  server:
+    build: ./server
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=produ ction
+    networks:
+      - demo-network
+
+  admin-dashboard:
+    build: ./admin-dashboard
+    ports:
+      - "3001:80"
+    depends_on:
+      - server
+    networks:
+      - demo-network
+
+  presenter-client:
+    build: ./presenter-client
+    ports:
+      - "3002:80"
+    depends_on:
+      - server
+    networks:
+      - demo-network
+
+networks:
+  demo-network:
+    driver: bridge

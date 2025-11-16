@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Presenter View</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Construction Tractor Parking Sensor Demo</h1>
+      <div class="status-bar">
+        <div>Direction: <span id="direction">0</span>°</div>
+        <div>Intensity: <span id="intensity">0</span>%</div>
+        <div class="connection-status" id="status">Connecting...</div>
+      </div>
+      <div class="demo-area">
+        <div class="tractor">🚜</div>
+        <div class="sensor-ring" id="sensorRing">
+          <div class="sensor-indicator" id="indicator"></div>
+        </div>
+      </div>
+    </div>
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

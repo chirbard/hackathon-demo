@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Hackathon Demo - Admin Control</h1>
+      <div class="status">
+        <div>Direction: <span id="direction">0</span>°</div>
+        <div>Intensity: <span id="intensity">0</span>%</div>
+      </div>
+      <div class="control-area">
+        <canvas id="controlCanvas" width="400" height="400"></canvas>
+        <div class="instructions">
+          Move mouse around the circle to control direction and intensity
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
