@@ -69,8 +69,8 @@ h1 {
 }
 
 .vehicle {
-  width: 80px;
-  height: 120px;
+  width: 150px;
+  height: 225px;
   filter: drop-shadow(0 0 10px rgba(0, 255, 136, 0.3));
   transition: all 0.3s ease;
 }
@@ -91,8 +91,8 @@ h1 {
   transition: all 0.5s ease;
   z-index: 5;
   /* Default size - will be controlled by JavaScript */
-  width: 200px;
-  height: 200px;
+  width: 350px;
+  height: 350px;
 }
 
 .sensor-bubble.intense {

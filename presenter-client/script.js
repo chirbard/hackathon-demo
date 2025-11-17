@@ -26,8 +26,8 @@ function updateDisplay(data) {
 function updateSensorBubble(intensity, direction) {
   // Calculate bubble size based on intensity (smaller = closer object)
   // Max size at 0 intensity, min size at 100 intensity
-  const maxSize = 150;
-  const minSize = 100;
+  const maxSize = 350;
+  const minSize = 200;
   const bubbleSize = maxSize - (intensity / 100) * (maxSize - minSize);
 
   sensorBubble.style.width = `${bubbleSize}px`;
@@ -50,9 +50,12 @@ function updateSensorBubble(intensity, direction) {
 }
 
 function updateIndicator(direction, intensity) {
-  // Position indicator at the edge of the bubble in the specified direction
-  const bubbleRadius = parseFloat(sensorBubble.style.width) / 2 || 100;
-  const indicatorDistance = bubbleRadius - 20; // Slightly inside the bubble edge
+  // Calculate indicator distance based on intensity
+  // Higher intensity = closer to vehicle (center), lower intensity = farther away
+  const minDistance = 50; // Minimum distance from center (high intensity)
+  const maxDistance = 320; // Maximum distance from center (low intensity)
+  const indicatorDistance =
+    minDistance + ((100 - intensity) / 100) * (maxDistance - minDistance);
 
   // Convert direction to radians (0° = top, clockwise)
   const angleRad = (direction - 90) * (Math.PI / 180);
